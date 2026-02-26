@@ -22,6 +22,10 @@ namespace Arch.Unity.Editor
         void OnDisable()
         {
             EditorApplication.update -= Repaint;
+            foreach (var (_, editor) in editorCache)
+            {
+                DestroyImmediate(editor);
+            }
             editorCache.Clear();
         }
 
@@ -57,7 +61,11 @@ namespace Arch.Unity.Editor
                     {
                         if (component is UnityEngine.Component c)
                         {
-                            if (!editorCache.TryGetValue(c, out var editor)) editor = CreateEditor(c);
+                            if (!editorCache.TryGetValue(c, out var editor))
+                            {
+                                editor = CreateEditor(c);
+                                editorCache.Add(c, editor);
+                            }
                             if (editor != null) editor.OnInspectorGUI();
                         }
                         else
