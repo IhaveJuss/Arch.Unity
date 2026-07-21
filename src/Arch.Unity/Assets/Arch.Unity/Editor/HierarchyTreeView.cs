@@ -5,6 +5,11 @@ using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 using Arch.Core;
 using Arch.Unity.Conversion;
+#if UNITY_6000_2_OR_NEWER
+using TreeView = UnityEditor.IMGUI.Controls.TreeView<int>;
+using TreeViewItem = UnityEditor.IMGUI.Controls.TreeViewItem<int>;
+using TreeViewState = UnityEditor.IMGUI.Controls.TreeViewState<int>;
+#endif
 
 namespace Arch.Unity.Editor
 {
